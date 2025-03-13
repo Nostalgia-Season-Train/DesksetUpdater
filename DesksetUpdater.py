@@ -46,7 +46,9 @@ copytree('./Deskset/i18n', './i18n')
 
 copy('./Deskset/Deskset.exe', './Deskset.exe')
 
-rmtree('./Deskset')  # 清除解压目录
+# 清除解压目录、更新包
+rmtree('./Deskset')
+remove('./Deskset.zip')
 
 
 # ==== 结束更新 ====
