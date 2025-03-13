@@ -25,15 +25,15 @@ with ZipFile('./Deskset.zip', 'r') as file:
 
 
 # ==== 删除旧文件 ===
-from os import remove
+from os import remove, rename
 from shutil import rmtree
+
+rename('./Deskset.exe', './Deskset-Old')  # Deskset.exe 运行时可以改名
 
 remove('./DesksetBack.py')
 rmtree('./site-packages')
 rmtree('./lib')
 rmtree('./i18n')
-
-remove('./Deskset.exe')
 
 
 # ==== 复制新文件 ====
