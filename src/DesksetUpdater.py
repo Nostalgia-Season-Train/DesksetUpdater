@@ -11,12 +11,12 @@ def download(url):
 
 
 # ==== 安装 ====
-def Install():
+def Install(zipfile_name: str) -> None:
     # 解压更新包
     from zipfile import ZipFile
     from os import mkdir
 
-    with ZipFile('./Deskset.zip', 'r') as file:
+    with ZipFile(f'./{zipfile_name}', 'r') as file:
         mkdir('./Deskset')
         file.extractall('./Deskset')
 
@@ -55,17 +55,14 @@ def Install():
 from argparse import ArgumentParser
 
 parser = ArgumentParser(description='数字桌搭更新器命令行参数')
-parser.add_argument('-url', required=True, help='下载地址')
+parser.add_argument('-file', required=True, help='更新包名称')
 args = parser.parse_args()
 
-url = args.url
+file = args.file
 
 
 # ==== 主函数 ====
 if __name__ == '__main__':
-    print('begin update', flush=True)
-    print('Phase 1: Download', flush=True)
-    download(url)
-    print('Phase 2: Install', flush=True)
-    Install()
-    print('finish update', flush=True)
+    print('Begin Install', flush=True)
+    Install(file)
+    print('Finish Install', flush=True)

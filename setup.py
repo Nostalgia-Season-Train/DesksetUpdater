@@ -1,5 +1,14 @@
-# 用 PyStand 也就是 DesksetBack.exe 启动
+from os import system
+from shutil import rmtree, make_archive
 
-import shutil
+# 清除上次构建
+rmtree('./dist', ignore_errors=True)
 
-shutil.make_archive('./DesksetUpdater', 'zip', './src')
+# nuitka 编译 DesksetUpdater.py
+  # --standalone 构建产物不依赖于本地 Python 环境
+  # --onefile    构建产物为可执行文件，而不是文件夹
+  # --assume-yes-for-downloads 自动确认编译所需工具的下载，不用手动输入 Yes
+system('nuitka --standalone --onefile --assume-yes-for-downloads ./src/DesksetUpdater.py --output-dir=./dist --remove-output')
+
+# 打包
+make_archive('./DesksetUpdater', 'zip', './dist')
