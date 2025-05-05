@@ -20,21 +20,23 @@ def Install(zipfile_name: str) -> None:
         mkdir('./Deskset')
         file.extractall('./Deskset')
 
-    # 删除旧文件
+    # 新版替换旧版文件、文件夹
     from pathlib import Path
     from os import remove, rename
     from shutil import rmtree
 
-    # 检查上次更新残留文件
+    # 清理上次更新残留文件
     if Path('./Deskset-Old').is_file():
         remove('./Deskset-Old')
 
     rename('./Deskset.exe', './Deskset-Old')  # Deskset.exe 运行时可以改名
 
-    remove('./DesksetBack.py')
-    rmtree('./site-packages')
-    rmtree('./lib')
-    rmtree('./i18n')
+    # 删除旧文件
+    if Path('./DesksetBack.py').is_file():
+        remove('./DesksetBack.py')
+    rmtree('./site-packages', ignore_errors=True)
+    rmtree('./lib', ignore_errors=True)
+    rmtree('./i18n', ignore_errors=True)
 
     # 复制新文件
     from shutil import copy, copytree
